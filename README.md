@@ -60,7 +60,3 @@ Writes changes to the database. If any entries have been deleted since the last 
 ### `compact(self)`
 
 Removes deleted entries from the database and reduces the file size. This is done by writing the current data to a new file, then replacing the old file with the new one. This method is called automatically by `push` if any entries have been deleted.
-
----
-
-This documentation provides a basic overview of how to use the `SaracenDB` class and what each method does. You might want to expand it with more details, examples, or explanations, depending on who your audience is and how familiar they are with key-value stores and BSON.
