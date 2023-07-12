@@ -21,7 +21,7 @@ setup(
     long_description_content_type="text/markdown",
     long_description=long_description,
     packages=find_packages(),
-    install_requires=['pymongo'],
+    install_requires=['pymongo','pyyaml'],
     keywords=['python', 'db'],
     classifiers=[
         "Development Status :: 1 - Planning",
