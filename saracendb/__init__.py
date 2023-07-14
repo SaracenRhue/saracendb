@@ -211,28 +211,35 @@ class SaracenDB:
             f.write(bson.encode(self.__data))
         shutil.move(temp_filename, self.__filename)
 
-    def to_json(self, coll: str=None) -> None:
+    def to_json(self, coll: str=None, cust_path: str=None) -> None:
         """Write the collection to a JSON file. If no collection is specified the entire db will be written to the file"""
-        data = ''
-        if not coll:
+        data, file_path = ''
+        if not coll or coll == '':
             coll = 'db'
             data = self.__data
         else:
             data = self.__data[coll]
-        with open(f'{coll}.json', 'w') as f:
-            json.dump(data, f)  
+        if cust_path is None:
+            file_path = f'{coll}.json'
+        else:
+            file_path = cust_path
+            with open(file_path, 'w') as f:
+                json.dump(data, f)  
 
-
-    def to_yaml(self, coll: str=None) -> None:
+    def to_yaml(self, coll: str=None, cust_path: str=None) -> None:
         """Write the collection to a YAML file. If no collection is specified the entire db will be written to the file"""
-        data = ''
-        if not coll:
+        data, file_path = ''
+        if not coll or coll == '':
             coll = 'db'
             data = self.__data
         else:
             data = self.__data[coll]
-        with open(f'{coll}.yaml', 'w') as f:
-            yaml.dump(data, f)  
+        if cust_path is None:
+            file_path = f'{coll}.yaml'
+        else:
+            file_path = cust_path
+            with open(file_path, 'w') as f:
+                yaml.dump(data, f) 
 
     def add_json(self, path: str) -> None:
         """add a JSON file to the current collection."""
