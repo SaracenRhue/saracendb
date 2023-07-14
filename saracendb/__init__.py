@@ -211,25 +211,28 @@ class SaracenDB:
             f.write(bson.encode(self.__data))
         shutil.move(temp_filename, self.__filename)
 
-    def to_json(self, path: str='collection.json') -> None:
-        """Write the collection to a JSON file."""
-        with open(path, 'w') as f:
-            json.dump(self.__data[self.__coll], f)
+    def to_json(self, coll: str=None) -> None:
+        """Write the collection to a JSON file. If no collection is specified the entire db will be written to the file"""
+        data = ''
+        if not coll:
+            coll = 'db'
+            data = self.__data
+        else:
+            data = self.__data[coll]
+        with open(f'{coll}.json', 'w') as f:
+            json.dump(data, f)  
 
-    def to_yaml(self, path: str='collection.yml') -> None:
-        """Write the collection to a YAML file."""
-        with open(path, 'w') as f:
-            yaml.dump(self.__data[self.__coll], f)
 
-    def db_to_json(self, path: str='db.json') -> None:
-        """Write the database to a JSON file."""
-        with open(path, 'w') as f:
-            json.dump(self.__data, f)
-
-    def db_to_yaml(self, path: str='db.yml') -> None:
-        """Write the database to a YAML file."""
-        with open(path, 'w') as f:
-            yaml.dump(self.__data, f)
+    def to_yaml(self, coll: str=None) -> None:
+        """Write the collection to a YAML file. If no collection is specified the entire db will be written to the file"""
+        data = ''
+        if not coll:
+            coll = 'db'
+            data = self.__data
+        else:
+            data = self.__data[coll]
+        with open(f'{coll}.yaml', 'w') as f:
+            yaml.dump(data, f)  
 
     def add_json(self, path: str) -> None:
         """add a JSON file to the current collection."""
@@ -271,7 +274,7 @@ class SaracenDB:
         self.compact()
 
     def get_coll(self) -> None:
-        """Return the current collection."""
+        """Return the current collection data."""
         return self.__data[self.__coll]
     
     def set_coll(self, coll: list) -> None:
