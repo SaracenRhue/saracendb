@@ -53,6 +53,14 @@ class SaracenDB:
             if key in entry and entry[key] == value:
                 matching_entries.append(entry)
         return matching_entries
+    
+    def filter(self, keys: list, values: list) -> list:
+        """Returns a list of dicts that contain the given key/value pairs."""
+        matching_entries = []
+        for entry in self.__data[self.__coll]:
+            if all(key in entry and entry[key] == value for key, value in zip(keys, values)):
+                matching_entries.append(entry)
+        return matching_entries
 
     def get(self, id: int) -> dict:
         """Returns the entry with the given id in the current collection, or None if no entry is found."""
